@@ -17,6 +17,11 @@ class MyListview extends StatelessWidget {
             separatorBuilder: (context, index) => Divider(),
             itemCount: state.todolist.length,
             itemBuilder: ((context, index) => Dismissible(
+                  onDismissed: (_) {
+                    context
+                        .read<TodolistCubit>()
+                        .removeToDo(state.todolist[index]);
+                  },
                   background: Container(
                     color: Colors.pink[200],
                     child: Row(
@@ -37,8 +42,18 @@ class MyListview extends StatelessWidget {
                   child: ListTile(
                     leading: Checkbox(
                         value: state.todolist[index].isCompleted,
-                        onChanged: null),
+                        onChanged: (_) {
+                          context
+                              .read<TodolistCubit>()
+                              .toggleTodo(state.todolist[index].id);
+                        }),
                     title: Text(state.todolist[index].description),
+                    onTap: () {
+                      // showDialog(
+                      //     context: context,
+                      //     builder:
+                      //      );
+                    },
                   ),
                 )));
       },

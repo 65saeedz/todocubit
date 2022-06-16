@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app_cubit/cubits/todolist/todolist_cubit.dart';
@@ -49,10 +50,38 @@ class MyListview extends StatelessWidget {
                         }),
                     title: Text(state.todolist[index].description),
                     onTap: () {
-                      // showDialog(
-                      //     context: context,
-                      //     builder:
-                      //      );
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                actions: <Widget>[
+                                  TextButton(
+                                      child: Text('Cancel'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }),
+                                  TextButton(
+                                      child: Text('Ok'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      })
+                                ],
+                                backgroundColor: Colors.grey[300],
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                content: Container(
+                                  child: Column(
+                                    children: [],
+                                  ),
+                                  //child: Text('data'),
+                                  constraints: const BoxConstraints(
+                                    minHeight: 250,
+                                    minWidth: 250,
+                                    maxHeight: 250,
+                                    maxWidth: 250,
+                                  ),
+                                ),
+                              ));
                     },
                   ),
                 )));

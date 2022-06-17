@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_cubit/cubits/todoactivecount/todoactivecount_cubit.dart';
 
 class Todo_Header extends StatelessWidget {
   const Todo_Header({
@@ -17,11 +19,9 @@ class Todo_Header extends StatelessWidget {
             style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500),
           ),
           Text(
-            '5 items left',
+            context.watch<TodoactivecountCubit>().state.activeCount.toString(),
             style: TextStyle(
-                fontSize: 25,
-                color: Colors.red,
-                fontWeight: FontWeight.w500),
+                fontSize: 25, color: Colors.red, fontWeight: FontWeight.w500),
           ),
         ],
       ),

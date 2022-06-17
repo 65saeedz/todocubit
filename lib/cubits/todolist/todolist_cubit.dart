@@ -25,6 +25,7 @@ class TodolistCubit extends Cubit<TodolistState> {
     List<Todo> newToDoList = state.todolist;
     var newToDoList2 = newToDoList.map((e) {
       if (e.id == id) {
+        print(!e.isCompleted);
         return Todo(description: e.description, isCompleted: !e.isCompleted);
       } else {
         return e;
@@ -35,10 +36,11 @@ class TodolistCubit extends Cubit<TodolistState> {
     print('toggeled');
   }
 
-  void editTodo(String id,String newdesc) {
+  void editTodo(String id, String newdesc) {
     List<Todo> newToDoList = state.todolist;
     var newToDoList2 = newToDoList.map((e) {
       if (e.id == id) {
+        print(newdesc);
         return Todo(description: newdesc, id: id);
       } else {
         return e;

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_cubit/cubits/todoactivecount/todoactivecount_cubit.dart';
+import 'package:todo_app_cubit/cubits/todofilter/todofilter_cubit.dart';
 import 'package:todo_app_cubit/cubits/todolist/todolist_cubit.dart';
+import 'package:todo_app_cubit/cubits/todosearch/todosearch_cubit.dart';
 
 import 'pages_widgets/todo_add_todo.dart';
 import 'pages_widgets/todo_filter_row.dart';
@@ -11,8 +14,18 @@ import 'pages_widgets/todo_search_todo.dart';
 void main() {
   runApp(MultiBlocProvider(
     providers: [
+      BlocProvider<TodofilterCubit>(
+        create: (BuildContext context) => TodofilterCubit(),
+      ),
+      BlocProvider<TodosearchCubit>(
+        create: (BuildContext context) => TodosearchCubit(),
+      ),
       BlocProvider<TodolistCubit>(
         create: (BuildContext context) => TodolistCubit(),
+      ),
+      BlocProvider<TodoactivecountCubit>(
+        create: (BuildContext context) =>
+            TodoactivecountCubit(todolistCubit: context.read<TodolistCubit>()),
       ),
     ],
     child: MaterialApp(

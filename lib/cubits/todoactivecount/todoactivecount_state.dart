@@ -5,7 +5,7 @@ class TodoactivecountState extends Equatable {
 
   TodoactivecountState({required this.activeCount});
   factory TodoactivecountState.initial() {
-    return TodoactivecountState(activeCount: 0);
+    return TodoactivecountState(activeCount: 3);
   }
   @override
   List<Object> get props => [activeCount];

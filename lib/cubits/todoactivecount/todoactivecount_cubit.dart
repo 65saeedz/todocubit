@@ -13,20 +13,19 @@ class TodoactivecountCubit extends Cubit<TodoactivecountState> {
 
   TodoactivecountCubit({required this.todolistCubit})
       : super(TodoactivecountState.initial()) {
-    todolistCubitsubscription = todolistCubit.stream.listen((todolistState) {
-      todolistState.todolist.map((e) {
-        int a = 0;
-        print('object');
-        if (!e.isCompleted) {
-          print('yessssssssssssss');
-          a++;
-        } else {
-          print('noooo');
-        }
-        emit(state.copyWith(activeCount: a));
-      });
+    todolistCubitsubscription = todolistCubit.stream.listen((event) {
+      setIncompletedToDosCount();
     });
   }
+  void setIncompletedToDosCount() {
+    final activeToDoList =
+        todolistCubit.state.todolist.where((todo) => !todo.isCompleted);
+
+    emit(
+      state.copyWith(activeCount: activeToDoList.length),
+    );
+  }
+
   void getTodoActiveCount() {}
 
   @override

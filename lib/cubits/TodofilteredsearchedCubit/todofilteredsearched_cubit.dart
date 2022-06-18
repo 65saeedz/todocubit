@@ -23,5 +23,52 @@ class TodofilteredsearchedCubit extends Cubit<TodofilteredsearchedState> {
     required this.todolistCubit,
     required this.todofilterCubit,
     required this.todosearchCubit,
-  }) : super(TodofilteredsearchedState.initial());
+  }) : super(TodofilteredsearchedState.initial()) {
+    todofilterCubitsubscription = todofilterCubit.stream.listen((event) {
+      setFilters_Searches();
+    });
+    todosearchCubitsubscription = todosearchCubit.stream.listen((event) {
+      setFilters_Searches();
+    });
+    todolistCubitsubscription = todolistCubit.stream.listen((event) {
+      setFilters_Searches();
+    });
+  }
+  void setFilters_Searches() {
+    List<Todo> newToDoList = [];
+    switch (todofilterCubit.state.filterStatus) {
+      case Filter.active:
+        newToDoList = todolistCubit.state.todolist
+            .where((todo) => !todo.isCompleted)
+            .toList();
+
+        break;
+      case Filter.compeleted:
+        newToDoList = todolistCubit.state.todolist
+            .where((todo) => todo.isCompleted)
+            .toList();
+
+        break;
+      case Filter.all:
+        newToDoList = todolistCubit.state.todolist;
+
+        break;
+    }
+    if (todosearchCubit.state.searchTerm.isNotEmpty) {
+      newToDoList = newToDoList
+          .where((todo) => todo.description
+              .toLowerCase()
+              .contains(todosearchCubit.state.searchTerm))
+          .toList();
+    }
+    emit(state.copyWith(searchedFilteredToDoes: newToDoList));
+  }
+
+  @override
+  Future<void> close() {
+    todofilterCubitsubscription.cancel();
+    todolistCubitsubscription.cancel();
+    todosearchCubitsubscription.cancel();
+    return super.close();
+  }
 }

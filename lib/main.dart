@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app_cubit/cubits/todoactivecount/todoactivecount_cubit.dart';
-import 'package:todo_app_cubit/cubits/todofilter/todofilter_cubit.dart';
-import 'package:todo_app_cubit/cubits/todolist/todolist_cubit.dart';
-import 'package:todo_app_cubit/cubits/todosearch/todosearch_cubit.dart';
+import 'package:todo_app_cubit/cubits/TodofilteredsearchedCubit/todofilteredsearched_cubit.dart';
+import 'cubits.dart';
 
 import 'pages_widgets/todo_add_todo.dart';
 import 'pages_widgets/todo_filter_row.dart';
@@ -24,8 +22,15 @@ void main() {
         create: (BuildContext context) => TodolistCubit(),
       ),
       BlocProvider<TodoactivecountCubit>(
-        create: (BuildContext context) =>
-            TodoactivecountCubit(todolistCubit: context.read<TodolistCubit>()),
+        create: (BuildContext context) => TodoactivecountCubit(
+          todolistCubit: BlocProvider.of<TodolistCubit>(context),
+        ),
+      ),
+      BlocProvider<TodofilteredsearchedCubit>(
+        create: (BuildContext context) => TodofilteredsearchedCubit(
+            todosearchCubit: BlocProvider.of<TodosearchCubit>(context),
+            todofilterCubit: BlocProvider.of<TodofilterCubit>(context),
+            todolistCubit: BlocProvider.of<TodolistCubit>(context)),
       ),
     ],
     child: MaterialApp(
@@ -55,7 +60,6 @@ class HomePage extends StatelessWidget {
               Todo_Add_Todo(),
               Todo_Search_Todo(),
               Todo_Filter_Row(),
-              // Todo_List_view(),
               MyListview()
             ],
           )),

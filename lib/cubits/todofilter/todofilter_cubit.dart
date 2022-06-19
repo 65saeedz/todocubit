@@ -8,5 +8,6 @@ class TodofilterCubit extends Cubit<TodofilterState> {
   TodofilterCubit() : super(TodofilterState.initial());
   void changeFilter(Filter newFilter) {
     emit(state.copyWith(filterStatus: newFilter));
+    print('filter changed');
   }
 }

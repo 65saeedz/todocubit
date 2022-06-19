@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_cubit/cubits.dart';
 
 class Todo_Search_Todo extends StatelessWidget {
   const Todo_Search_Todo({Key? key}) : super(key: key);
@@ -6,6 +8,9 @@ class Todo_Search_Todo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: (txt) {
+        context.read<TodosearchCubit>().changeSearchTerm(txt);
+      },
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.grey.shade300,

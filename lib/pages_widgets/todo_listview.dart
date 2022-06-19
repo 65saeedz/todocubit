@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_cubit/cubits.dart';
+import 'package:todo_app_cubit/cubits/TodofilteredsearchedCubit/todofilteredsearched_cubit.dart';
 
 import 'package:todo_app_cubit/cubits/todolist/todolist_cubit.dart';
 import 'package:todo_app_cubit/models/todo.dart';
@@ -15,12 +17,17 @@ class MyListview extends StatelessWidget {
         primary: false,
         shrinkWrap: true,
         separatorBuilder: (context, index) => Divider(),
-        itemCount: context.watch<TodolistCubit>().state.todolist.length,
+        itemCount: context
+            .watch<TodofilteredsearchedCubit>()
+            .state
+            .searchedFilteredToDoes
+            .length,
         itemBuilder: ((context, index) {
-          return BlocBuilder<TodolistCubit, TodolistState>(
+          return BlocBuilder<TodofilteredsearchedCubit,
+              TodofilteredsearchedState>(
             builder: (context, state) {
               return ToDoItem(
-                todo: state.todolist[index],
+                todo: state.searchedFilteredToDoes[index],
               );
             },
           );

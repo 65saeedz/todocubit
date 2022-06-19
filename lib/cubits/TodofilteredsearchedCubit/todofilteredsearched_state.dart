@@ -9,7 +9,7 @@ class TodofilteredsearchedState extends Equatable {
   @override
   List<Object> get props => [searchedFilteredToDoes];
   factory TodofilteredsearchedState.initial() {
-    return TodofilteredsearchedState(searchedFilteredToDoes: []);
+    return TodofilteredsearchedState(searchedFilteredToDoes: TodolistState.initial().todolist);
   }
   TodofilteredsearchedState copyWith({
     List<Todo>? searchedFilteredToDoes,
